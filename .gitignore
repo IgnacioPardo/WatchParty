@@ -14,4 +14,4 @@ venv.bak/
 
 db.p
 poetry.lock
-pytproject.toml
+pyproject.toml
