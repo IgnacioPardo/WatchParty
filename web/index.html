@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+  <head>
+		<meta name="twitter:card" content="summary" />
+		<meta property="og:url" content="https://watchparty.ignaciopardo.repl.co/" />
+		<meta property="og:title" content="WatchParty" />
+		<meta property="og:description" content="" />
+		<meta property="og:image" content="static/thumbnail.jpg" />
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1">-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no, shrink-to-fit=no" />
+		<meta name="HandheldFriendly" content="true"> 
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Expires" content="-1">
+		<!-- for ios 7 style, multi-resolution icon of 152x152 -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+		<link rel="apple-touch-icon" href="static/icon-152.png">
+		<!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="shortcut icon" sizes="196x196" href="static/icon-196.png">
+		<meta name="apple-mobile-web-app-title" content="WatchParty">
+		<meta name="application-name" content="WatchParty">
+    <title>WatchParty</title>
+    <style>
+			html, body {
+				width: 100%;
+				height: 100%;
+				margin:0;
+				padding:0;
+        background-color: #222222;
+			}
+      body {
+        overflow: hidden;
+        background: #222222;;
+        border-radius: 12px;
+        font-family: 'Avenir';
+      }
+      .frame{
+        width: 100%;
+        height: 100%;
+        background-color: #222222;
+        //border-radius: 12px;
+      }
+      .icon{
+        margin-top: 83px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 57px;
+      }
+			.buttons{
+				width: 200px;
+				display: block;
+        margin-left: auto;
+        margin-right: auto;
+			}
+      .log{
+        width: 259px;
+        height: 41px;
+        background-color: #C4C4C4;
+        border-radius: 5px;
+        border: 0px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-indent:15px!important;
+        font-size: 22px;
+        margin-bottom: 29px;
+      }
+      .pas_txt{ 
+        margin-bottom: 35px;
+      }
+      .log_btn{
+        font-size: 22px;
+        color: #C4C4C4;
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        padding: 0px;
+        margin-top: 0px;
+      }
+      .log_btn:hover {
+        cursor: pointer;
+        color:red;
+      }
+      .signin_btn{
+				float:right;
+      }
+      .signout_btn{
+        margin-left: 30px;
+        margin-top: 30px;
+      }
+      .signout_btn:hover {
+        cursor: pointer;
+      }
+      .strip{
+        width: 100%;
+        background-color: #282828; 
+        margin-bottom: 6px;
+      }
+      .friends_bar{
+        height: 50px;
+      }
+      .new_friend_txt{
+        height: 32px;
+        width: 70%;
+        border-radius: 16px;
+        border: 0px;
+        background-color: #222222;
+        text-indent:12px!important;
+        color:white;
+        font-size:15px;
+        margin-left: 6px;
+        margin-top: 6px;
+      }
+      .small_round{
+        background-color: #222222;
+        color:white;
+        background-repeat:no-repeat;
+        border: none;
+        border-radius: 16px;
+        padding: 0px;
+        height: 32px;
+        width: 32px;
+        margin-left: 6px;
+        margin-top: 6px;
+      }
+      .small_round:hover {
+        cursor: pointer;
+        background-color: #444444;
+      }
+      .item_text{
+        vertical-align: middle;
+        display: table-cell;
+      }
+      .item_platform{
+        width: 88px;
+        height: 80px;
+        display: table-cell;
+      }
+      .platform_img{
+        margin-left: 14px;
+        margin-top: 21px;
+      }
+      .np_item_clickable{
+        color:white;
+        text-decoration: none;
+      }
+      .np_item_clickable:hover {
+        text-decoration: underline;
+      }
+      .me{
+        width: 100%;
+        height: 125px;
+        color: white;
+      }
+      .me_name{
+        font-size: 42px;
+      }
+      .me_np_platform{
+        vertical-align: middle;
+        display: table-cell;
+        width: 70px;
+      }
+      .me_np_title{
+        max-width: 270px;
+        vertical-align: middle;
+        display: table-cell;
+      }
+      .me_np_divider{
+        vertical-align: middle;
+        display: table-cell;
+        width: 20px;
+      }
+      input:focus {outline:none;}
+      button:focus {outline:none;}
+      .no_friends{
+        margin-top: 45px;
+      }
+      .no_friends_img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+			.loading{
+				width: 100%;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.loading_icon{
+			}
+			.loading_part{
+					animation-name: ckw;
+					animation-duration: 1.5s;
+					/* Things added */
+					animation-iteration-count: infinite;
+					transform-origin: 83.66px 40.66px;
+					display: inline-block;
+					/* <--- */
+			}
+			@keyframes ckw {
+					0% {
+							transform: rotate(0deg);
+					}
+					100% {
+							transform: rotate(360deg);
+					}
+			}
+    </style>
+    <script src="static/forge.min.js"></script>
+    <script src="static/script.js?REPLACE"></script>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="login">
+        <img class="icon" src="https://watchparty.ignaciopardo.repl.co/static/icons/main_icon.svg">
+        <input class="log usr_txt" placeholder="JohnnyAppleseed" type="text">
+        <input class="log pas_txt" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+        <div class="buttons">
+					<button type="button" class="log_btn signup_btn">Sign Up</button>
+					<button type="button" class="log_btn signin_btn">Sign In</button>
+        </div>
+      </div>
+			<!--<div class="loading">
+				<svg class="loading_icon" width="168" height="168" viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M151.2 61.6H156.8V67.2H151.2V61.6Z" fill="#D81F26"/>
+					<path d="M145.6 70H156.8V75.6H145.6V70Z" fill="#D81F26"/>
+					<path d="M140 78.4H156.8V84H140V78.4Z" fill="#D81F26"/>
+					<path d="M19.2549 29.4969L29.493 19.2588L33.4528 23.2186L23.2147 33.4567L19.2549 29.4969Z" fill="#D81F26"/>
+					<path d="M10.8579 21.0997L21.096 10.8616L25.0558 14.8214L14.8177 25.0595L10.8579 21.0997Z" fill="#D81F26"/>
+					<path d="M159.6 95.2C161.826 95.1934 163.958 94.3062 165.532 92.7324C167.106 91.1585 167.993 89.0258 168 86.8V8.4C167.993 6.17423 167.106 4.04151 165.532 2.46765C163.958 0.89378 161.826 0.00664745 159.6 0H8.4C6.17423 0.00664745 4.04151 0.89378 2.46765 2.46765C0.89378 4.04151 0.00664745 6.17423 0 8.4V86.8C0.00664745 89.0258 0.89378 91.1585 2.46765 92.7324C4.04151 94.3062 6.17423 95.1934 8.4 95.2H41.132C42.1038 97.294 43.4514 99.1921 45.108 100.8H44.8C42.5742 100.807 40.4415 101.694 38.8676 103.268C37.2938 104.842 36.4066 106.974 36.4 109.2V112H25.2C22.9742 112.007 20.8415 112.894 19.2676 114.468C17.6938 116.042 16.8066 118.174 16.8 120.4V126H8.4C6.17423 126.007 4.04151 126.894 2.46765 128.468C0.89378 130.042 0.00664745 132.174 0 134.4V165.2C0 165.943 0.294999 166.655 0.820101 167.18C1.3452 167.705 2.05739 168 2.8 168H19.6C20.3426 168 21.0548 167.705 21.5799 167.18C22.105 166.655 22.4 165.943 22.4 165.2V162.4H145.6V165.2C145.6 165.943 145.895 166.655 146.42 167.18C146.945 167.705 147.657 168 148.4 168H165.2C165.943 168 166.655 167.705 167.18 167.18C167.705 166.655 168 165.943 168 165.2V134.4C167.993 132.174 167.106 130.042 165.532 128.468C163.958 126.894 161.826 126.007 159.6 126H151.2V120.4C151.193 118.174 150.306 116.042 148.732 114.468C147.158 112.894 145.026 112.007 142.8 112H131.6V109.2C131.593 106.974 130.706 104.842 129.132 103.268C127.558 101.694 125.426 100.807 123.2 100.8H122.892C124.549 99.1921 125.896 97.294 126.868 95.2H159.6ZM16.8 162.4H5.6V134.4C5.6 133.657 5.895 132.945 6.4201 132.42C6.9452 131.895 7.65739 131.6 8.4 131.6H16.8V162.4ZM151.2 131.6H159.6C160.343 131.6 161.055 131.895 161.58 132.42C162.105 132.945 162.4 133.657 162.4 134.4V162.4H151.2V131.6ZM39.424 89.6H8.4C7.65739 89.6 6.9452 89.305 6.4201 88.7799C5.895 88.2548 5.6 87.5426 5.6 86.8V8.4C5.6 7.65739 5.895 6.9452 6.4201 6.4201C6.9452 5.895 7.65739 5.6 8.4 5.6H159.6C160.343 5.6 161.055 5.895 161.58 6.4201C162.105 6.9452 162.4 7.65739 162.4 8.4V86.8C162.4 87.5426 162.105 88.2548 161.58 88.7799C161.055 89.305 160.343 89.6 159.6 89.6H128.576C128.721 88.6737 128.796 87.7376 128.8 86.8C128.8 81.6018 126.735 76.6164 123.059 72.9407C119.384 69.265 114.398 67.2 109.2 67.2C104.002 67.2 99.0164 69.265 95.3407 72.9407C91.665 76.6164 89.6 81.6018 89.6 86.8C89.6039 87.7376 89.6788 88.6737 89.824 89.6H78.176C78.3212 88.6737 78.3961 87.7376 78.4 86.8C78.4 81.6018 76.335 76.6164 72.6593 72.9407C68.9836 69.265 63.9982 67.2 58.8 67.2C53.6018 67.2 48.6164 69.265 44.9407 72.9407C41.265 76.6164 39.2 81.6018 39.2 86.8C39.2039 87.7376 39.2788 88.6737 39.424 89.6ZM72.8 100.8H72.492C74.1485 99.1921 75.4962 97.294 76.468 95.2H91.532C92.5038 97.294 93.8514 99.1921 95.508 100.8H95.2C92.9742 100.807 90.8415 101.694 89.2676 103.268C87.6938 104.842 86.8066 106.974 86.8 109.2V112H81.2V109.2C81.1934 106.974 80.3062 104.842 78.7324 103.268C77.1585 101.694 75.0258 100.807 72.8 100.8ZM44.8 86.8C44.8 84.0311 45.6211 81.3243 47.1594 79.022C48.6978 76.7197 50.8843 74.9253 53.4424 73.8657C56.0006 72.8061 58.8155 72.5288 61.5313 73.069C64.247 73.6092 66.7416 74.9426 68.6995 76.9005C70.6574 78.8584 71.9908 81.353 72.531 84.0687C73.0712 86.7845 72.7939 89.5994 71.7343 92.1576C70.6747 94.7157 68.8803 96.9022 66.578 98.4406C64.2757 99.9789 61.5689 100.8 58.8 100.8C55.087 100.8 51.526 99.325 48.9005 96.6995C46.275 94.074 44.8 90.513 44.8 86.8ZM42 109.2C42 108.457 42.295 107.745 42.8201 107.22C43.3452 106.695 44.0574 106.4 44.8 106.4H72.8C73.5426 106.4 74.2548 106.695 74.7799 107.22C75.305 107.745 75.6 108.457 75.6 109.2V112H42V109.2ZM142.8 117.6C143.543 117.6 144.255 117.895 144.78 118.42C145.305 118.945 145.6 119.657 145.6 120.4V156.8H22.4V120.4C22.4 119.657 22.695 118.945 23.2201 118.42C23.7452 117.895 24.4574 117.6 25.2 117.6H142.8ZM123.2 106.4C123.943 106.4 124.655 106.695 125.18 107.22C125.705 107.745 126 108.457 126 109.2V112H92.4V109.2C92.4 108.457 92.695 107.745 93.2201 107.22C93.7452 106.695 94.4574 106.4 95.2 106.4H123.2ZM109.2 100.8C106.431 100.8 103.724 99.9789 101.422 98.4406C99.1197 96.9022 97.3253 94.7157 96.2657 92.1576C95.2061 89.5994 94.9288 86.7845 95.469 84.0687C96.0092 81.353 97.3426 78.8584 99.3005 76.9005C101.258 74.9426 103.753 73.6092 106.469 73.069C109.184 72.5288 111.999 72.8061 114.558 73.8657C117.116 74.9253 119.302 76.7197 120.841 79.022C122.379 81.3243 123.2 84.0311 123.2 86.8C123.2 90.513 121.725 94.074 119.099 96.6995C116.474 99.325 112.913 100.8 109.2 100.8Z" fill="#D81F26"/>
+					<g xmlns="http://www.w3.org/2000/svg" class="loading_part"><path xmlns="http://www.w3.org/2000/svg" d="M88.3798 58C85.8974 58.7208 83.2904 58.9072 80.7308 58.547C78.1711 58.1867 75.7168 57.288 73.5298 55.91C71.3154 54.49 69.4284 52.6152 67.9939 50.4101C66.5595 48.205 65.6104 45.72 65.2098 43.12C64.8155 40.486 64.9756 37.7986 65.6798 35.23C66.4045 32.6533 67.6806 30.2648 69.4198 28.23C71.1726 26.1468 73.3492 24.461 75.8046 23.285C78.2601 22.109 80.9379 21.4699 83.6598 21.41V21.41C83.9913 21.41 84.3093 21.5417 84.5437 21.7762C84.7781 22.0106 84.9098 22.3285 84.9098 22.66C84.9098 22.9916 84.7781 23.3095 84.5437 23.5439C84.3093 23.7783 83.9913 23.91 83.6598 23.91H83.6098C79.9723 23.8557 76.4132 24.9697 73.4558 27.0883C70.4984 29.2069 68.2986 32.2184 67.1798 35.68C66.0331 39.2484 66.0643 43.0909 67.269 46.6401C68.4737 50.1893 70.7879 53.257 73.8698 55.39C75.9671 56.8246 78.3445 57.7989 80.8453 58.2487C83.3462 58.6986 85.914 58.6138 88.3798 58V58Z" fill="#D81F26"/></g>
+					</svg>
+			</div>-->
+      <div class="main">
+        <img class="signout_btn" src="https://watchparty.ignaciopardo.repl.co/static/icons/sign_out.svg">
+        <div class="me">
+        </div>
+        <div class="strip friends_bar">
+          <input class="new_friend_txt" placeholder="SteveJobs"><button type="button" class="small_round add_btn">&#65291;</button><button type="button" class="small_round remove_btn">&#10005;</button>
+        </div>
+        <div class="friends">
+					<div class="no_friends">
+            <img class="no_friends_img" src="https://watchparty.ignaciopardo.repl.co/static/icons/no_friends.svg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
