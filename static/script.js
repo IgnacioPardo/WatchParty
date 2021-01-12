@@ -108,7 +108,6 @@ function signup_response(data){
 		signed = true;
 		update_np(data.np)
 		console.log({usr, pas})
-		read()
 	}
 	else{
 		//Alert
@@ -138,7 +137,6 @@ function signin_response(data){
 		console.log(data.data.np)
 		update_np(data.data.np);
 		load_friends();
-		read();
 	}
 	else{
 		if(!first){
@@ -215,47 +213,10 @@ function update(){
 	  .then(response => response.json())
 	  .then(data => update_np(data));
 }
-
-function read(){
-	if (url.includes('disneyplus')){
-		if (document.getElementsByClassName('title-field').length != 0){
-			title = encodeURIComponent(document.getElementsByClassName('title-field')[0].innerHTML + ' ' + document.getElementsByClassName('subtitle-field')[0].innerHTML);
-			platform = encodeURIComponent('disney');
-		}
-	}
-	else if (url.includes('netflix')){
-		title = encodeURIComponent(document.getElementsByClassName('ellipsize-text')[0].childNodes[0].innerHTML + ' ' + document.getElementsByClassName('ellipsize-text')[0].childNodes[1].innerHTML + ' ' + document.getElementsByClassName('ellipsize-text')[0].childNodes[2].innerHTML);
-		platform = encodeURIComponent('netflix');
-	}
-	else if (url.includes('hbogo')){
-		title = encodeURIComponent(document.getElementsByClassName('contentTitle')[0].innerHTML);
-		platform = encodeURIComponent('hbogo');
-	}
-	else if (url.includes('youtube')) {
-		title = encodeURIComponent(navigator.mediaSession.metadata.artist + ' | ' + navigator.mediaSession.metadata.title);
-		platform = encodeURIComponent('youtube');
-	} 
-	else if (url.includes('spotify')) {
-		title = encodeURIComponent(navigator.mediaSession.metadata.artist + ' | ' + navigator.mediaSession.metadata.title);
-		platform = encodeURIComponent('spotify');
-	}
-	else if ('mediaSession' in navigator) {
-		if (navigator.mediaSession.metadata){
-			title = encodeURIComponent(navigator.mediaSession.metadata.artist + ' | ' + navigator.mediaSession.metadata.title);
-			platform = encodeURIComponent('.');
-		}
-	}
-	else{
-		return null
-	}
-	
-	usr = localStorage.getItem('usr');
-	pas = localStorage.getItem('pas');
-
-	title = encodeURIComponent(title);
-	platform = encodeURIComponent(platform);
-
-	return {title, url, platform, usr, pas};
+function retrieve_np(){
+	fetch(baseURL+'retrieve_np/'+usr+'/'+pas)
+	  .then(response => response.json())
+	  .then(data => update_np(data));
 }
 
 setInterval(timed_loop, 5000);
@@ -264,16 +225,7 @@ var pretitle;
 function timed_loop(){
 	if (signed){
 		load_friends();
-		/*if (title != ''){
-			pretitle = title;
-			read()
-			if (pretitle != title){
-				console.log({pretitle, title})
-				if (!(platform == '' || url == '')){
-					update()
-				}
-			}
-		}*/
+		retrieve_np();
 	}
 }
 

@@ -32,8 +32,10 @@
         background-color: #222222;
 			}
       body {
-        overflow: hidden;
-        background: #222222;;
+        //overflow: hidden;
+				//overflow-y: hidden;
+        overflow-x: hidden;
+				background: #222222;;
         border-radius: 12px;
         font-family: 'Avenir';
       }
@@ -100,6 +102,9 @@
         background-color: #282828; 
         margin-bottom: 6px;
       }
+			.friends{
+				overflow-y: scroll !important;
+			}
       .friends_bar{
         height: 50px;
       }
@@ -210,6 +215,14 @@
 							transform: rotate(360deg);
 					}
 			}
+			.scroll::-webkit-scrollbar {
+				display: none;
+			}
+			/* Hide scrollbar for IE, Edge and Firefox */
+			.scroll {
+				-ms-overflow-style: none;  /* IE and Edge */
+				scrollbar-width: none;  /* Firefox */
+			}
     </style>
     <script src="static/forge.min.js"></script>
     <script src="static/script.js?REPLACE"></script>
@@ -243,7 +256,7 @@
         <div class="strip friends_bar">
           <input class="new_friend_txt" placeholder="SteveJobs"><button type="button" class="small_round add_btn">&#65291;</button><button type="button" class="small_round remove_btn">&#10005;</button>
         </div>
-        <div class="friends">
+        <div class="scroll friends">
 					<div class="no_friends">
             <img class="no_friends_img" src="https://watchparty.ignaciopardo.repl.co/static/icons/no_friends.svg">
           </div>

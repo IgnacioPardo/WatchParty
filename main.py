@@ -144,6 +144,12 @@ def update_np(usr, pas, title, url=None, platform=None):
 		return {'url' : url, 'title' : title, 'platform' : platform, 'timestamp' : t}
 	return {'response' : validate(usr, pas), 'description':(not validate(usr, pas))*'in'+'valid user'}
 
+@app.route('/retrieve_np/<usr>/<pas>')
+def retrieve_np(usr, pas):
+	if validate(usr, pas):
+		return db[usr]['np']
+	return {'response' : validate(usr, pas), 'description':(not validate(usr, pas))*'in'+'valid user'}
+
 """
 @app.route('/set_np/<usr>/<pas>/<title>')
 def set_np(usr, pas, title):
