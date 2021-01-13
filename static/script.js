@@ -25,6 +25,8 @@ var add_btn;
 var remove_btn;
 
 document.addEventListener('DOMContentLoaded', function () {
+	document.body.style.overflowY = 'hidden';
+
 	url =	encodeURIComponent(window.location.href.replaceAll('/', '|').replaceAll(':', ';'));
 	signout_btn = document.getElementsByClassName('signout_btn')[0];
 	signin_btn = document.getElementsByClassName('signin_btn')[0];
@@ -76,6 +78,12 @@ function get_usr_pas(){
 }
 
 function hide_show_inputs(){
+	if (login_div.hidden){
+		document.body.style.overflowY = 'hidden';
+	}
+	else{
+		document.body.style.overflowY = 'visible';
+	}
 	login_div.hidden = !login_div.hidden;
 	main_div.hidden = !login_div.hidden;
 }
