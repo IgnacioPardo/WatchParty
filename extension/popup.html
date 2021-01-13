@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+  <head>
+    <title>WatchParty</title>
+    <style>
+      body {
+        overflow-x: hidden;
+        margin: 0px;
+        padding: 0px;
+        background: #222222;
+        border-radius: 12px;
+        font-family: 'Avenir';
+      }
+      .frame{
+        width: 400px;
+        height: 600px;
+        background-color: #222222;
+        //border-radius: 12px;
+      }
+      .icon{
+        margin-top: 83px;
+        margin-left: 116px;
+        margin-right: 116px;
+        margin-bottom: 57px;
+      }
+      .log{
+        width: 259px;
+        height: 41px;
+        background-color: #C4C4C4;
+        border-radius: 5px;
+        border: 0px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-indent:15px!important;
+        font-size: 22px;
+        margin-bottom: 29px;
+      }
+      .pas_txt{ 
+        margin-bottom: 35px;
+      }
+      .log_btn{
+        font-size: 22px;
+        color: #C4C4C4;
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        padding: 0px;
+        margin-top: 0px;
+      }
+      .log_btn:hover {
+        cursor: pointer;
+        color:red;
+      }
+      .signup_btn{
+        margin-left: 102px;
+      }
+      .signin_btn{
+        margin-left: 45px;
+      }
+      .signout_btn{
+        margin-left: 30px;
+        margin-top: 30px;
+      }
+      .signout_btn:hover {
+        cursor: pointer;
+      }
+      .strip{
+        width: 100%;
+        background-color: #282828; 
+        margin-bottom: 6px;
+      }
+      .friends{
+        //overflow-y: scroll !important;
+      }
+      .friends_bar{
+        height: 46px;
+      }
+      .new_friend_txt{
+        height: 32px;
+        width: 308px;
+        border-radius: 16px;
+        border: 0px;
+        background-color: #222222;
+        text-indent:12px!important;
+        color:white;
+        font-size:15px;
+        margin-left: 6px;
+        margin-top: 6px;
+      }
+      .small_round{
+        background-color: #222222;
+        color:white;
+        background-repeat:no-repeat;
+        border: none;
+        border-radius: 16px;
+        padding: 0px;
+        height: 32px;
+        width: 32px;
+        margin-left: 6px;
+        margin-top: 6px;
+      }
+      .small_round:hover {
+        cursor: pointer;
+        background-color: #444444;
+      }
+      .item_text{
+        vertical-align: middle;
+        display: table-cell;
+      }
+      .item_platform{
+        width: 88px;
+        height: 80px;
+        display: table-cell;
+      }
+      .platform_img{
+        margin-left: 14px;
+        margin-top: 21px;
+      }
+      .np_item_clickable{
+        color:white;
+        text-decoration: none;
+      }
+      .np_item_clickable:hover {
+        text-decoration: underline;
+      }
+      .me{
+        width: 100%;
+        height: 125px;
+        color: white;
+      }
+      .me_name{
+        font-size: 42px;
+      }
+      .me_np_platform{
+        vertical-align: middle;
+        display: table-cell;
+        width: 70px;
+      }
+      .me_np_title{
+        max-width: 270px;
+        vertical-align: middle;
+        display: table-cell;
+      }
+      .me_np_divider{
+        vertical-align: middle;
+        display: table-cell;
+        width: 20px;
+      }
+      input:focus {outline:none;}
+      button:focus {outline:none;}
+      .no_friends{
+        margin-top: 45px;
+      }
+      .no_friends_img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .scroll::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .scroll {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      input:focus {outline:none;}
+      button:focus {outline:none;}
+    </style>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="login">
+        <img class="icon" src="https://watchparty.ignaciopardo.repl.co/static/icons/main_icon.svg">
+        <input class="log usr_txt" placeholder="JohnnyAppleseed" type="text">
+        <input class="log pas_txt" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+        <button type="button" class="log_btn signup_btn">Sign Up</button>
+        <button type="button" class="log_btn signin_btn">Sign In</button>
+      </div>
+      <div class="main">
+        <img class="signout_btn" src="https://watchparty.ignaciopardo.repl.co/static/icons/sign_out.svg">
+
+        <div class="me">
+        </div>
+        <div class="strip friends_bar">
+          <input class="new_friend_txt" placeholder="SteveJobs"><button type="button" class="small_round add_btn">&#65291;</button><button type="button" class="small_round remove_btn">&#10005;</button>
+        </div>
+        <div class="friends">
+          <div class="no_friends">
+            <img class="no_friends_img" src="https://watchparty.ignaciopardo.repl.co/static/icons/no_friends.svg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
