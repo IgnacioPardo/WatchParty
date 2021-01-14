@@ -60,6 +60,11 @@ def main():
 	#index.html
 	return cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8'))
 
+@app.route('/stats')
+def stats():
+	#index.html
+	return size()
+
 @app.route('/validate/')
 @app.route('/validate/<usr>')
 @app.route('/validate/<usr>/<pas>')
