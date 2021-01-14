@@ -64,16 +64,17 @@ def main():
 def circle(size, big='', color=''):
 	return '<div class="dark '+big+' '+color+' c100 pPSIZE center"><span>PSIZE%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div>'.replace('PSIZE', str(size)[:5])
 
-@app.route('/stats')
-def stats():
-	#index.html
+def html_stats():
 	s = codecs.open('web/stats_header.html', 'r', 'utf-8').read()
 	if request.MOBILE:
-		response = s + '<center><br><br><table style=" width:75%;margin-top:10%;"><tr>RAM</tr><tr>'+circle(ram_usage_p()*100)+'</tr><br><tr>DISK</tr><tr>'+circle(disk_usage_p()*100, 'green')+'</tr><br><tr>DB: '+str(len(l_db())) + ' keys'+'</tr><tr>'+circle(db_disk_p()*100, 'orange')+'</tr></table></center>'
+		return s + '<center><br><br><table style=" width:75%;margin-top:10%;"><tr>RAM</tr><tr>'+circle(ram_usage_p()*100)+'</tr><br><tr>DISK</tr><tr>'+circle(disk_usage_p()*100, 'green')+'</tr><br><tr>DB: '+str(len(l_db())) + ' keys'+'</tr><tr>'+circle(db_disk_p()*100, 'orange')+'</tr></table></center>'
 	else:
-		response = s + '<center><table style=" width:75%;margin-top:10%;"><tr><th>RAM</th><th>DISK</th><th>DB: '+str(len(l_db())) + ' keys'+'</th></tr><tr><td>'+circle(ram_usage_p()*100, big='big')+'</td><td>'+circle(disk_usage_p()*100, big='big', color='green')+'</td><td>'+circle(db_disk_p()*100, big='big', color='orange')+'</td></tr></table></center>'
+		return s + '<center><table style=" width:75%;margin-top:10%;"><tr><th>RAM</th><th>DISK</th><th>DB: '+str(len(l_db())) + ' keys'+'</th></tr><tr><td>'+circle(ram_usage_p()*100, big='big')+'</td><td>'+circle(disk_usage_p()*100, big='big', color='green')+'</td><td>'+circle(db_disk_p()*100, big='big', color='orange')+'</td></tr></table></center>'
 
-	return response
+
+@app.route('/stats')
+def stats():
+	return html_stats()
 
 @app.route('/validate/')
 @app.route('/validate/<usr>')
