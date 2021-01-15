@@ -9,6 +9,7 @@ from flask import Flask, send_from_directory, request
 from flask_mobility import Mobility
 import codecs
 import os
+import zipfile
 
 #Threading
 from threading import Thread
@@ -35,6 +36,10 @@ requestsLog = logging.getLogger('urllib3.connectionpool')
 requestsLog.disabled = True"""
 
 db = l_db()
+def getDLink(r):
+	if r:
+		return 'https://www.icloud.com/shortcuts/5e4a1b6ff02c4f2ab15bf90addf28bfd'
+	return 'https://WatchParty.ignaciopardo.repl.co/download'
 
 def cacheWorkaround(file):
     return file.read().replace('REPLACE', t)
@@ -61,19 +66,25 @@ Mobility(app)
 @app.route('/redirect_signin')
 def main():
 	#index.html
-	return cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8'))
+	site = cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8'))
+	site = site.replace('download_link', getDLink(request.MOBILE))
+	return site
 
 @app.route('/black')
 @app.route('/black_redirect_signin')
 def black():
 	#index.html
-	return cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8')).replace('#222222', 'black').replace('#282828', '#0e0e0e').replace('icon-196', 'icon-196-black').replace('icon-152', 'icon-152-black')
+	site = cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8'))
+	site = site.replace('download_link', getDLink(request.MOBILE))
+	return site.replace('#222222', 'black').replace('#282828', '#0e0e0e').replace('icon-196', 'icon-196-black').replace('icon-152', 'icon-152-black')
 
 @app.route('/white')
 @app.route('/white_redirect_signin')
 def white():
 	#index.html
-	return cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8')).replace('white', 'black').replace('#222222', 'white').replace('#282828', '#f0f0f0').replace('sign_out.svg', 'sign_out_red.svg')
+	site = cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8'))
+	site = site.replace('download_link', getDLink(request.MOBILE))
+	return site.replace('white', 'black').replace('#222222', 'white').replace('#282828', '#f0f0f0').replace('sign_out.svg', 'sign_out_red.svg')
 
 @app.route('/stats')
 def stats():
@@ -229,6 +240,16 @@ def new_usr(usr, pas):
 def delete_all():
 	db = clear()
 	return 'Done'
+
+@app.route('/download')
+def zipExtension():
+	zf = zipfile.ZipFile("static/WatchParty-Chrome.zip", "w")
+	for dirname, subdirs, files in os.walk("extension"):
+		zf.write(dirname)
+		for filename in files:
+			zf.write(os.path.join(dirname, filename))
+	zf.close()
+	return send_from_directory(os.path.join(app.root_path, 'static'),'WatchParty-Chrome.zip')
 
 @app.route('/favicon.ico')
 def favicon():

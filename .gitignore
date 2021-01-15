@@ -16,5 +16,6 @@ db.p
 poetry.lock
 pyproject.toml
 test.py
+WatchParty-Chrome.zip
 
 .DS_Store
