@@ -56,25 +56,28 @@ def keep_alive():
 app = Flask(__name__)
 Mobility(app)
 
+
 @app.route('/')
+@app.route('/redirect_signin')
 def main():
 	#index.html
 	return cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8'))
 
-def circle(size, big='', color=''):
-	return '<div class="dark '+big+' '+color+' c100 pPSIZE center"><span>PSIZE%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div>'.replace('PSIZE', str(size)[:5])
+@app.route('/black')
+@app.route('/black_redirect_signin')
+def black():
+	#index.html
+	return cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8')).replace('#222222', 'black').replace('#282828', '#0e0e0e').replace('icon-196', 'icon-196-black').replace('icon-152', 'icon-152-black')
 
-def html_stats():
-	s = codecs.open('web/stats_header.html', 'r', 'utf-8').read()
-	if request.MOBILE:
-		return s + '<center><br><br><table style=" width:75%;margin-top:10%;"><tr>RAM</tr><tr>'+circle(ram_usage_p()*100)+'</tr><br><tr>DISK</tr><tr>'+circle(disk_usage_p()*100, 'green')+'</tr><br><tr>DB: '+str(len(l_db())) + ' keys'+'</tr><tr>'+circle(db_disk_p()*100, 'orange')+'</tr></table></center>'
-	else:
-		return s + '<center><table style=" width:75%;margin-top:10%;"><tr><th>RAM</th><th>DISK</th><th>DB: '+str(len(l_db())) + ' keys'+'</th></tr><tr><td>'+circle(ram_usage_p()*100, big='big')+'</td><td>'+circle(disk_usage_p()*100, big='big', color='green')+'</td><td>'+circle(db_disk_p()*100, big='big', color='orange')+'</td></tr></table></center>'
-
+@app.route('/white')
+@app.route('/white_redirect_signin')
+def white():
+	#index.html
+	return cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8')).replace('white', 'black').replace('#222222', 'white').replace('#282828', '#f0f0f0').replace('sign_out.svg', 'sign_out_red.svg')
 
 @app.route('/stats')
 def stats():
-	return html_stats()
+	return html_stats(request.MOBILE)
 
 @app.route('/validate/')
 @app.route('/validate/<usr>')
@@ -160,6 +163,21 @@ def update_np(usr, pas, title, url=None, platform=None):
 		return {'url' : url, 'title' : title, 'platform' : platform, 'timestamp' : t}
 	return {'response' : validate(usr, pas), 'description':(not validate(usr, pas))*'in'+'valid user'}
 
+@app.route('/update_np_ios/<usr>/<pas>/<title>/<url>/<platform>')
+def update_np_ios(usr, pas, title, url=None, platform=None):
+	url = unquote(url)
+	url = url.replace('|', '/').replace(';', ':')
+	platform = unquote(platform)
+	title = unquote(title)
+	print(usr, title, url, platform)
+	if validate(usr, pas):
+		db[usr]['np'] = {'url' : url, 'title' : title, 'platform' : platform, 'timestamp' : t}
+		db[usr]['history'][t] = db[usr]['np']
+		del db[usr]['history'][t]['timestamp']
+		u_db(db)
+		return 'Done'
+	return 'Error'
+
 @app.route('/retrieve_np/<usr>/<pas>')
 def retrieve_np(usr, pas):
 	if validate(usr, pas):
@@ -186,7 +204,7 @@ def clear_h(usr, pas):
 	return {'response' : validate(usr, pas), 'description':(not validate(usr, pas))*'in'+'valid user'}
 
 
-@app.route('/update_usr/<usr>/<pas>/<new_usr>')
+@app.route('/change_username/<usr>/<pas>/<new_usr>')
 def update_usr(usr, pas, new_usr):
 	if validate(usr, pas):
 		db[new_usr] = db.pop(usr)

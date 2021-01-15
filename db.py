@@ -1,4 +1,4 @@
-import os, psutil, pickle
+import os, psutil, pickle, codecs
 db_loc = os.getenv("db_loc")
 
 def to_str():
@@ -44,3 +44,13 @@ def disk_usage_p():
 def db_disk_p():
 	return db_size() / disk_size
 	
+
+def circle(size, big='', color=''):
+	return '<div class="dark '+big+' '+color+' c100 pPSIZE center"><span>PSIZE%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div>'.replace('PSIZE', str(size)[:5])
+
+def html_stats(mobile):
+	s = codecs.open('web/stats_header.html', 'r', 'utf-8').read()
+	if mobile:
+		return s + '<center><br><br><table style=" width:75%;margin-top:10%;"><tr>RAM</tr><tr>'+circle(ram_usage_p()*100)+'</tr><br><tr>DISK</tr><tr>'+circle(disk_usage_p()*100, 'green')+'</tr><br><tr>DB: '+str(len(l_db())) + ' keys'+'</tr><tr>'+circle(db_disk_p()*100, 'orange')+'</tr></table></center>'
+	else:
+		return s + '<center><table style=" width:75%;margin-top:10%;"><tr><th>RAM</th><th>DISK</th><th>DB: '+str(len(l_db())) + ' keys'+'</th></tr><tr><td>'+circle(ram_usage_p()*100, big='big')+'</td><td>'+circle(disk_usage_p()*100, big='big', color='green')+'</td><td>'+circle(db_disk_p()*100, big='big', color='orange')+'</td></tr></table></center>'

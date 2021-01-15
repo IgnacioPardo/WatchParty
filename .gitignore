@@ -15,5 +15,6 @@ venv.bak/
 db.p
 poetry.lock
 pyproject.toml
+test.py
 
 .DS_Store

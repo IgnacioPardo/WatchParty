@@ -1,3 +1,10 @@
+var debugging = false;
+function debug(obj){
+	if (debugging){
+		console.log(obj);
+	}
+}
+
 var baseURL = 'https://watchparty.ignaciopardo.repl.co/';
 
 var title = localStorage.getItem('title');
@@ -6,7 +13,14 @@ var url;
 
 var usr = localStorage.getItem('usr');
 var pas = localStorage.getItem('pas');
-console.log({usr, pas});
+
+if (window.location.href.includes('redirect_signin')){
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	usr = urlParams.get('usr')
+	pas = urlParams.get('pas')
+}
+debug({usr, pas});
 var signed = false;
 var initial = true;
 var first = false;
@@ -115,7 +129,7 @@ function signup_response(data){
 		localStorage.setItem('pas', pas);
 		signed = true;
 		update_np(data.np)
-		console.log({usr, pas})
+		debug({usr, pas})
 	}
 	else{
 		//Alert
@@ -124,7 +138,7 @@ function signup_response(data){
 }
 
 function l(r){
-	console.log(r)
+	debug(r)
 	return r.json()
 }
 
@@ -135,14 +149,14 @@ function signin(){
 }
 
 function signin_response(data){
-	console.log(data);
+	debug(data);
 	if(data.response){
 		hide_show_inputs();
 		localStorage.setItem('usr',usr);
 		localStorage.setItem('pas',pas);
-		console.log({usr, pas});
+		debug({usr, pas});
 		signed = true;
-		console.log(data.data.np)
+		debug(data.data.np)
 		update_np(data.data.np);
 		load_friends();
 	}
@@ -160,19 +174,23 @@ function load_friends(){
 }
 
 function display_friends_np(data){
-	console.log(data);
+	debug(data);
 	if (Object.entries(data.data).length == 0){
 		document.getElementsByClassName('friends')[0].innerHTML = '<div class="no_friends"><img class="no_friends_img" src="https://watchparty.ignaciopardo.repl.co/static/icons/no_friends.svg"></div>';
 	}
 	else{
 		document.getElementsByClassName('friends')[0].innerHTML = '';
 		for (let [key, value] of Object.entries(data.data)) {
-			console.log(key, value);
+			debug(key, value);
 			if (value['platform'] == null || value['platform'] == '' || value['platform'] == 'null'){
 				document.getElementsByClassName('friends')[0].innerHTML += '<a class="np_item_clickable" href="'+value['url']+'"><div class="strip np_item"><div class="item_platform"></div><div class="item_text"><div class="item_username">'+key+'</div><div class="item_title">'+value['title']+'</div></div></div></a>';
 			}
 			else{
-				document.getElementsByClassName('friends')[0].innerHTML += '<a class="np_item_clickable" href="'+value['url']+'"><div class="strip np_item"><div class="item_platform"><img class="platform_img" src="https://watchparty.ignaciopardo.repl.co/static/icons/'+value['platform']+'.svg"></div><div class="item_text"><div class="item_username">'+key+'</div><div class="item_title">'+value['title']+'</div></div></div></a>';
+				var img = value['platform']
+				if (window.location.href.includes('white')){
+					img += '-owhite'
+				}
+				document.getElementsByClassName('friends')[0].innerHTML += '<a class="np_item_clickable" href="'+value['url']+'"><div class="strip np_item"><div class="item_platform"><img class="platform_img" src="https://watchparty.ignaciopardo.repl.co/static/icons/'+img+'.svg"></div><div class="item_text"><div class="item_username">'+key+'</div><div class="item_title">'+value['title']+'</div></div></div></a>';
 			}
 		}
 	}
@@ -213,7 +231,11 @@ function update_np(data){
 	if (data['platform'] == null || data['platform'] == '' || data['platform'] == 'null')
 		document.getElementsByClassName('me')[0].innerHTML = '<center><div class="me_name">'+usr+'</div><div class="me_content"><div class="me_np_platform"></div><div class="me_np_divider"></div><div class="me_np_title">'+data['title']+'</div></div></center>';
 	else
-		document.getElementsByClassName('me')[0].innerHTML = '<center><div class="me_name">'+usr+'</div><div class="me_content"><div class="me_np_platform"><img src="https://watchparty.ignaciopardo.repl.co/static/icons/'+data['platform']+'.svg"></div><div class="me_np_divider"></div><div class="me_np_title">'+data['title']+'</div></div></center>';
+		var img = data['platform']
+		if (window.location.href.includes('white')){
+			img += '-owhite'
+		}
+		document.getElementsByClassName('me')[0].innerHTML = '<center><div class="me_name">'+usr+'</div><div class="me_content"><div class="me_np_platform"><img src="https://watchparty.ignaciopardo.repl.co/static/icons/'+img+'.svg"></div><div class="me_np_divider"></div><div class="me_np_title">'+data['title']+'</div></div></center>';
 }
 
 function update(){
@@ -237,4 +259,4 @@ function timed_loop(){
 	}
 }
 
-console.log({title, url})
+debug({title, url})
