@@ -7,9 +7,7 @@ from urllib.parse import unquote
 
 from flask import Flask, send_from_directory, request
 from flask_mobility import Mobility
-import codecs
-import os
-import zipfile
+import codecs, os, zipfile
 
 #Threading
 from threading import Thread
