@@ -1,7 +1,6 @@
 #from replit import db
 from db import *
 from datetime import datetime
-t = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
 from urllib.parse import unquote
 #import hashlib
 
@@ -34,12 +33,14 @@ requestsLog = logging.getLogger('urllib3.connectionpool')
 requestsLog.disabled = True"""
 
 db = l_db()
+
 def getDLink(r):
 	if r:
 		return 'https://www.icloud.com/shortcuts/5e4a1b6ff02c4f2ab15bf90addf28bfd'
-	return 'https://WatchParty.ignaciopardo.repl.co/download'
+	return '/download'
 
 def cacheWorkaround(file):
+    t = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
     return file.read().replace('REPLACE', t)
 
 def validate(usr, pas):
@@ -60,17 +61,19 @@ app = Flask(__name__)
 Mobility(app)
 
 
-@app.route('/')
-@app.route('/redirect_signin')
-def main():
+@app.route('/dark')
+@app.route('/dark_redirect_signin')
+def gray():
 	#index.html
 	site = cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8'))
 	site = site.replace('download_link', getDLink(request.MOBILE))
 	return site
 
+@app.route('/')
+@app.route('/redirect_signin')
 @app.route('/black')
 @app.route('/black_redirect_signin')
-def black():
+def main():
 	#index.html
 	site = cacheWorkaround(codecs.open('web/index.html', 'r', 'utf-8'))
 	site = site.replace('download_link', getDLink(request.MOBILE))
@@ -238,6 +241,18 @@ def new_usr(usr, pas):
 def delete_all():
 	db = clear()
 	return 'Done'
+
+@app.route('/list_db')
+def list_db():
+	returnDB = db
+	for n in returnDB.keys():
+		if "'" in returnDB[n]['np']['title']:
+			returnDB[n]['np']['title'] = returnDB[n]['np']['title'].replace("'", '')
+		for t in returnDB[n]['history']:
+			if "'" in returnDB[n]['history'][t]['title']:
+				returnDB[n]['history'][t]['title'] = returnDB[n]['history'][t]['title'].replace("'", '')
+
+	return '<body>'+str(returnDB).replace("'", '"').replace('None', 'null')+'<script>console.log(document.body.innerText);\nmyObj =JSON.parse(document.body.innerText);\ntxt = "<table border=\'1\'>";\nfor (x in myObj) {\ntxt += "<tr><td>" + JSON.stringify(myObj[x]) + "</td></tr>";\n}\ntxt += "</table>";\ndocument.body.innerHTML = txt;</script></body>'
 
 @app.route('/download')
 def zipExtension():
